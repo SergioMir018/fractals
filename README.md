@@ -23,7 +23,7 @@ Make sure you have the following installed on your system:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/fractal-explorer.git
+   git clone https://github.com/SergioMir018/fractals
    cd fractals
    ```
 
@@ -49,27 +49,11 @@ Make sure you have the following installed on your system:
    http://localhost:5173
    ```
 
-## Project Structure
-
-```
-fractal-explorer/
-├── public/             # Static assets
-├── src/
-│   ├── components/     # Reusable React components
-│   │   └── FractalCanvas.tsx  # Main fractal rendering component
-│   ├── App.tsx         # Root React component
-│   └── index.tsx       # Entry point
-├── index.css           # Global styles
-├── package.json        # Project dependencies and scripts
-└── README.md           # Project documentation
-```
-
 ## Development Goals
 
-1. Implement fractal generation algorithms, starting with the **Mandelbrot Set**.
+1. Implement fractal generation algorithms.
 2. Add interactive controls (zooming, panning, parameter adjustments).
 3. Optimize rendering performance for smooth interaction.
-4. Extend the project to support additional fractal types (e.g., Julia Set, Barnsley Fern).
 
 ## Future Enhancements
 
