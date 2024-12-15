@@ -1,14 +1,15 @@
-import { useRef, useEffect } from 'react';
-import { drawTree } from '../utils/fractalsEcuations';
+import { useEffect, useRef } from 'react';
+import { useFractal } from '../hooks/useFractal';
+import { useAngle } from '../hooks/useAngle';
 import { useDepth } from '../hooks/useDepth';
 import { useAngleVariation } from '../hooks/useAngleVariation';
-import { useAngle } from '../hooks/useAngle';
 
-const FractalTree: React.FC = () => {
+const FractalCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const setAngleVariation = useAngleVariation()
+  const { drawFractal, selectedFractal } = useFractal();
   const [depth] = useDepth();
   const [angle] = useAngle();
+  const angleVariation = useAngleVariation();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,33 +18,31 @@ const FractalTree: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const parentElement = canvas.parentElement as HTMLElement | null;
-    if (!parentElement) return;
+    canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
+    canvas.height = canvas.parentElement?.clientHeight || window.innerHeight;
 
-    canvas.width = parentElement.clientWidth * 0.8;
-    canvas.height = parentElement.clientHeight;
-
+    // Limpiar canvas antes de dibujar
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    drawTree(
-      canvas.width / 2,
-      canvas.height / 2 - 200,
-      190,
-      -90,
-      depth,
-      ctx,
-      setAngleVariation
-    );
-  }, [depth, angle, setAngleVariation]);
+    // Dibujar fractal
+    drawFractal(ctx, {
+      x: canvas.width / 2,
+      y: canvas.height / 2,
+      width: canvas.width,
+      height: canvas.height,
+      length: 150,
+      angle: angle,
+      level: depth,
+      angleVariation,
+    });
+  }, [drawFractal, selectedFractal, depth, angle, angleVariation]);
 
   return (
     <canvas
       ref={canvasRef}
-      className='border col-span-4 border-gray-700 h-screen shadow-lg'
+      className='border col-span-4 border-gray-700 w-full h-full'
     />
   );
 };
 
-export default FractalTree;
+export default FractalCanvas;
