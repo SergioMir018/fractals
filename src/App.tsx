@@ -1,12 +1,13 @@
-import FractalCanvas from './components/FractalCanvas'
+import FractalCanvas from './components/FractalCanvas';
+import SideBar from './components/SideBar';
 
 function App() {
-
   return (
-    <div style={{ margin: 0, padding: 0, overflow: 'hidden'}}>
+    <div className='grid grid-cols-5 '>
+      <SideBar />
       <FractalCanvas />
     </div>
   );
 }
 
-export default App
+export default App;
